@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>frieren - Login</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial;}
+
+body{
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:
+        linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
+        url("https://server.wallpaperalchemy.com/storage/wallpapers/182/frieren-blue-flowers-wallpaper-4k.jpg") center/cover no-repeat fixed;
+}
+
+.container{
+    width:380px;
+    background:rgba(20,20,30,0.9);
+    padding:35px;
+    border-radius:20px;
+    backdrop-filter:blur(15px);
+    color:white;
+}
+
+h2{text-align:center;margin-bottom:20px;}
+
+input{
+    width:100%;
+    padding:12px;
+    margin:10px 0;
+    border-radius:10px;
+    border:1px solid #444;
+    background:#111;
+    color:white;
+}
+
+button{
+    width:100%;
+    padding:12px;
+    margin-top:10px;
+    border:none;
+    border-radius:10px;
+    background:linear-gradient(135deg,#3b82f6,#8b5cf6);
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+button:hover{transform:scale(1.05);}
+
+.toggle{
+    text-align:center;
+    margin-top:15px;
+    cursor:pointer;
+    color:#93c5fd;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h2 id="title">Đăng nhập</h2>
+
+<input type="text" id="username" placeholder="Tên đăng nhập">
+<input type="password" id="password" placeholder="Mật khẩu">
+
+<button onclick="submitForm()" id="mainBtn">Đăng nhập</button>
+
+<div class="toggle" onclick="toggleForm()" id="toggleText">
+Chưa có tài khoản? Đăng ký
+</div>
+
+</div>
+
+<script>
+let isLogin = true;
+
+function toggleForm(){
+    isLogin = !isLogin;
+
+    document.getElementById("title").innerText =
+        isLogin ? "Đăng nhập" : "Đăng ký";
+
+    document.getElementById("mainBtn").innerText =
+        isLogin ? "Đăng nhập" : "Đăng ký";
+
+    document.getElementById("toggleText").innerText =
+        isLogin ? "Chưa có tài khoản? Đăng ký"
+                : "Đã có tài khoản? Đăng nhập";
+}
+
+function submitForm(){
+    let user = document.getElementById("username").value;
+    let pass = document.getElementById("password").value;
+
+    if(user==="" || pass===""){
+        alert("Vui lòng nhập đầy đủ!");
+        return;
+    }
+
+    if(isLogin){
+        let savedUser = localStorage.getItem("username");
+        let savedPass = localStorage.getItem("password");
+
+        if(user===savedUser && pass===savedPass){
+            localStorage.setItem("currentUser",user);
+            window.location.href="D:\home.html";
+        }else{
+            alert("Sai tài khoản hoặc mật khẩu!");
+        }
+    }else{
+        localStorage.setItem("username",user);
+        localStorage.setItem("password",pass);
+        alert("Đăng ký thành công!");
+        toggleForm();
+    }
+}
+</script>
+
+</body>
+</html>
